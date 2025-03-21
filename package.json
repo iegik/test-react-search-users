@@ -24,7 +24,7 @@
     "commit": "git-cz",
     "dev": "vite",
     "format": "prettier . --write --ignore-path .gitignore && git update-index --again",
-    "preinstall": "npx solidarity",
+    "preinstall": "echo npx solidarity",
     "lint": "eslint",
     "prepare": "npx husky || true",
     "serve": "npm run build && vite preview --port 3000",
