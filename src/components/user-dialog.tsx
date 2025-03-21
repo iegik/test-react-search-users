@@ -1,7 +1,6 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
-import { Mail, Phone, MapPin, Calendar, Building2 } from "lucide-react"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Mail, Phone, Building2 } from "lucide-react"
 
 interface UserDialogProps {
   user: User | null
@@ -21,12 +20,9 @@ export function UserDialog({ user, open, onOpenChange }: UserDialogProps) {
         <div className="space-y-6">
           <div className="flex flex-col items-center text-center gap-2">
             <Avatar className="h-20 w-20">
-              {/* <AvatarImage src={user.avatar} alt={user.name} /> */}
               <AvatarFallback>{user.name.substring(0, 2).toUpperCase()}</AvatarFallback>
             </Avatar>
             <h2 className="text-xl font-semibold">{user.name}</h2>
-            {/* <Badge variant={user.status === "Active" ? "default" : "secondary"}>{user.status}</Badge> */}
-            {/* <p className="text-sm text-muted-foreground">{user.role}</p> */}
           </div>
 
           <div className="space-y-3">
@@ -42,18 +38,6 @@ export function UserDialog({ user, open, onOpenChange }: UserDialogProps) {
               <Building2 className="h-4 w-4 text-muted-foreground" />
               <span>{user.company.name}</span>
             </div>
-            {/* <div className="flex items-center gap-2">
-              <MapPin className="h-4 w-4 text-muted-foreground" />
-              <span>{user.location}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Calendar className="h-4 w-4 text-muted-foreground" />
-              <span>Joined {user.joinDate}</span>
-            </div> */}
-          </div>
-
-          <div className="text-sm text-muted-foreground">
-            {/* <p>Last active: {user.lastActive}</p> */}
           </div>
         </div>
       </DialogContent>

@@ -12,12 +12,10 @@ import { UsersContext } from "@/state/users"
 export function UserFilter() {
   const [viewMode, setViewMode] = useState<"table" | "card">("table")
   const [searchQuery, setSearchQuery] = useState("")
-  const [selectedUser, setSelectedUser] = useState<(typeof users)[0] | null>(null)
+  const [selectedUser, setSelectedUser] = useState<User | null>(null)
   const [dialogOpen, setDialogOpen] = useState(false)
-  const users:User[] = useContext(UsersContext);
+  const users = useContext(UsersContext);
 
-
-  // Filter users based on search query
   const filteredUsers = users.filter(
     (user) =>
       user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||

@@ -1,8 +1,7 @@
 "use client"
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 
 interface UserTableProps {
   users: User[]
@@ -18,9 +17,6 @@ export function UserTable({ users, onUserClick }: UserTableProps) {
             <TableHead>User</TableHead>
             <TableHead>Phone</TableHead>
             <TableHead>Company</TableHead>
-            {/* <TableHead>Role</TableHead> */}
-            {/* <TableHead>Status</TableHead> */}
-            {/* <TableHead className="hidden md:table-cell">Last Active</TableHead> */}
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -47,11 +43,6 @@ export function UserTable({ users, onUserClick }: UserTableProps) {
                 </TableCell>
                 <TableCell>{user.phone}</TableCell>
                 <TableCell>{user.company.name}</TableCell>
-                {/* <TableCell>{user.role}</TableCell> */}
-                {/* <TableCell>
-                  <Badge variant={user.status === "Active" ? "default" : "secondary"}>{user.status}</Badge>
-                </TableCell> */}
-                {/* <TableCell className="hidden md:table-cell">{user.lastActive}</TableCell> */}
               </TableRow>
             ))
           )}

@@ -5,7 +5,6 @@ import {
   Link as RRLink,
   BrowserRouter,
 } from "react-router-dom";
-import ReactIcon from "@/assets/logo.svg?react";
 import { UserFilter } from "./components/user-filter";
 import { UsersContext } from "./state/users";
 import { Suspense, useEffect, useState } from "react";
@@ -105,8 +104,6 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index path="" element={<Home />} />
-            {/* <Route path="about" element={<About />} />
-            <Route path="dashboard" element={<Dashboard />} /> */}
 
             {/* Using path="*"" means "match anything", so this route
                     acts like a catch-all for URLs that we don't have explicit
