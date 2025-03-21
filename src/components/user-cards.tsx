@@ -36,6 +36,8 @@ export function UserCards({ users, onUserClick }: UserCardsProps) {
                   </div>
                   <p className="text-sm text-muted-foreground">{user.email}</p>
                   <div className="flex items-center justify-between text-sm">
+                    <span>{user.phone}</span>
+                    <span>{user.company.name}</span>
                     {/* <span>{user.role}</span> */}
                     {/* <span className="text-muted-foreground">{user.lastActive}</span> */}
                   </div>

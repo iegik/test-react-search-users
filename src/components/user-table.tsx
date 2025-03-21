@@ -16,6 +16,8 @@ export function UserTable({ users, onUserClick }: UserTableProps) {
         <TableHeader>
           <TableRow>
             <TableHead>User</TableHead>
+            <TableHead>Phone</TableHead>
+            <TableHead>Company</TableHead>
             {/* <TableHead>Role</TableHead> */}
             {/* <TableHead>Status</TableHead> */}
             {/* <TableHead className="hidden md:table-cell">Last Active</TableHead> */}
@@ -43,6 +45,8 @@ export function UserTable({ users, onUserClick }: UserTableProps) {
                     </div>
                   </div>
                 </TableCell>
+                <TableCell>{user.phone}</TableCell>
+                <TableCell>{user.company.name}</TableCell>
                 {/* <TableCell>{user.role}</TableCell> */}
                 {/* <TableCell>
                   <Badge variant={user.status === "Active" ? "default" : "secondary"}>{user.status}</Badge>

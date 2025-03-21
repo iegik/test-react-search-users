@@ -40,16 +40,16 @@ export function UserDialog({ user, open, onOpenChange }: UserDialogProps) {
             </div>
             <div className="flex items-center gap-2">
               <Building2 className="h-4 w-4 text-muted-foreground" />
-              {/* <span>{user.department}</span> */}
+              <span>{user.company.name}</span>
             </div>
-            <div className="flex items-center gap-2">
+            {/* <div className="flex items-center gap-2">
               <MapPin className="h-4 w-4 text-muted-foreground" />
-              {/* <span>{user.location}</span> */}
+              <span>{user.location}</span>
             </div>
             <div className="flex items-center gap-2">
               <Calendar className="h-4 w-4 text-muted-foreground" />
-              {/* <span>Joined {user.joinDate}</span> */}
-            </div>
+              <span>Joined {user.joinDate}</span>
+            </div> */}
           </div>
 
           <div className="text-sm text-muted-foreground">
