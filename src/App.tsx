@@ -8,7 +8,8 @@ import {
 import ReactIcon from "@/assets/logo.svg?react";
 import { UserFilter } from "./components/user-filter";
 import { UsersContext } from "./state/users";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
+import { ErrorDialog } from "./components/error-dialog";
 
 const Link = (props: { [x: string]: any; className: any; href: any }) => {
   const { className, href, ...restProps } = props;
@@ -24,17 +25,31 @@ const Link = (props: { [x: string]: any; className: any; href: any }) => {
   );
 };
 
-const defaultUsers:User[] = [];
+const Error500 = () => {
+  return `500 error`
+}
+
+const defaultUsers: User[] = [];
 export function Home() {
   const [users, setUsers] = useState<User[]>(defaultUsers);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const data:User[] = await fetch('https://jsonplaceholder.typicode.com/users/') //'/api/users')
-        .then(res => res.json())
+      try {
+        const res = await fetch('https://jsonplaceholder.typicode.com/users/') //'/api/users')
+        if (!res.ok) {
+          setError(`Server request failed`);
+          return;
+        }
+        const data:User[] = await res.json()
 
-      if (data) {
-        setUsers(data);
+        if (data.length) {
+          setUsers(data);
+        }
+      } catch (e) {
+        console.error(e);
+        setError(`Server request failed`);
       }
     }
 
@@ -45,8 +60,9 @@ export function Home() {
     <div className="container mx-auto py-10">
       <h1 className="text-3xl font-bold mb-6">Users</h1>
       <UsersContext.Provider value={users}>
-          <UserFilter />
+        <UserFilter />
       </UsersContext.Provider>
+      <ErrorDialog message={error} />
     </div>
   );
 }
@@ -79,19 +95,21 @@ function NoMatch() {
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index path="" element={<Home />} />
-          {/* <Route path="about" element={<About />} />
-          <Route path="dashboard" element={<Dashboard />} /> */}
+    <Suspense fallback={<Error500 />}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index path="" element={<Home />} />
+            {/* <Route path="about" element={<About />} />
+            <Route path="dashboard" element={<Dashboard />} /> */}
 
-          {/* Using path="*"" means "match anything", so this route
-                  acts like a catch-all for URLs that we don't have explicit
-                  routes for. */}
-          <Route path="*" element={<NoMatch />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+            {/* Using path="*"" means "match anything", so this route
+                    acts like a catch-all for URLs that we don't have explicit
+                    routes for. */}
+            <Route path="*" element={<NoMatch />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </Suspense>
   );
 }
