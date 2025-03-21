@@ -17,7 +17,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:8080",
+        target: "https://jsonplaceholder.typicode.com", // Not work by CloudFlare security reasons
         secure: false,
         rewrite: path => path.replace(/^\/api/, ""),
       },

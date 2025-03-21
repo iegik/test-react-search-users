@@ -6,6 +6,9 @@ import {
   BrowserRouter,
 } from "react-router-dom";
 import ReactIcon from "@/assets/logo.svg?react";
+import { UserFilter } from "./components/user-filter";
+import { UsersContext } from "./state/users";
+import { useEffect, useState } from "react";
 
 const Link = (props: { [x: string]: any; className: any; href: any }) => {
   const { className, href, ...restProps } = props;
@@ -21,31 +24,29 @@ const Link = (props: { [x: string]: any; className: any; href: any }) => {
   );
 };
 
+const defaultUsers:User[] = [];
 export function Home() {
+  const [users, setUsers] = useState<User[]>(defaultUsers);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const data:User[] = await fetch('https://jsonplaceholder.typicode.com/users/') //'/api/users')
+        .then(res => res.json())
+
+      if (data) {
+        setUsers(data);
+      }
+    }
+
+    fetchUsers();
+  }, [])
+
   return (
-    <div className="flex min-h-[100dvh] flex-col items-center justify-center bg-background px-4 py-12 sm:px-6 lg:px-8">
-      <header className="mx-auto max-w-md text-center">
-        <div className="inline-block rounded-full bg-primary p-2">
-          <ReactIcon className="h-32 w-32 text-primary-foreground" />
-        </div>
-        <h1 className="mt-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-          Simplicity at its Finest
-        </h1>
-        <p className="mt-4 text-muted-foreground">
-          Discover the power of minimalism with our cutting-edge solutions.
-        </p>
-        <p className="mt-4">
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <div className="mt-6">
-          <Link
-            href="https://reactjs.org"
-            className="inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-          >
-            Learn React
-          </Link>
-        </div>
-      </header>
+    <div className="container mx-auto py-10">
+      <h1 className="text-3xl font-bold mb-6">Users</h1>
+      <UsersContext.Provider value={users}>
+          <UserFilter />
+      </UsersContext.Provider>
     </div>
   );
 }
