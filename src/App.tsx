@@ -10,6 +10,7 @@ import { UserFilter } from "./components/user-filter";
 import { UsersContext } from "./state/users";
 import { Suspense, useEffect, useState } from "react";
 import { ErrorDialog } from "./components/error-dialog";
+import { Loader } from "./components/loader";
 
 const Link = (props: { [x: string]: any; className: any; href: any }) => {
   const { className, href, ...restProps } = props;
@@ -33,6 +34,7 @@ const defaultUsers: User[] = [];
 export function Home() {
   const [users, setUsers] = useState<User[]>(defaultUsers);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -40,6 +42,7 @@ export function Home() {
         const res = await fetch('https://jsonplaceholder.typicode.com/users/') //'/api/users')
         if (!res.ok) {
           setError(`Server request failed`);
+          setLoading(false);
           return;
         }
         const data:User[] = await res.json()
@@ -50,6 +53,7 @@ export function Home() {
       } catch (e) {
         console.error(e);
         setError(`Server request failed`);
+        setLoading(false);
       }
     }
 
@@ -61,6 +65,7 @@ export function Home() {
       <h1 className="text-3xl font-bold mb-6">Users</h1>
       <UsersContext.Provider value={users}>
         <UserFilter />
+        {!loading && <Loader />}
       </UsersContext.Provider>
       <ErrorDialog message={error} />
     </div>
